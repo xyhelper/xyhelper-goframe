@@ -3,8 +3,7 @@
 
 set -e
 BASE_DIR=$(pwd)
-echo "BASE_DIR=$BASE_DIR"
-BACKUP_DIR="$BASE_DIR/.devcontainer/data/backup"
+BACKUP_DIR="$BASE_DIR/data/backup"
 BACKUPTIME=$(date +%Y%m%d-%H%M%S)
 
 
@@ -21,7 +20,6 @@ if [ ! -d "$BACKUP_DIR" ]; then
 fi
 
 # 备份所有库
-cd $BASE_DIR/.devcontainer
 docker compose exec mysql sh -c 'exec mysqldump --all-databases -uroot -p"$MYSQL_ROOT_PASSWORD"' >$BACKUP_DIR/all-$BACKUPTIME.sql
 
 # 只备份cool数据库
